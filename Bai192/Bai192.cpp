@@ -4,8 +4,8 @@ using namespace std;
 
 void Nhap(int[][100], int&, int&);
 void Xuat(int[][100], int, int);
-bool ktNguyenTo(int);
-int NguyenToDau(int[][100], int, int);
+void LietKe(int[][100], int, int);
+
 int main()
 {
 	int b[100][100];
@@ -13,13 +13,12 @@ int main()
 
 	cout << "Nhap ma tran:\n";
 	Nhap(b, k, l);
+
 	cout << "\nMa tran vua nhap:\n";
 	Xuat(b, k, l);
 
-	if (NguyenToDau(b, k, l) == -1)
-		cout << "\nMa tran khong co so nguyen to.";
-	else
-		cout << "\nSo nguyen to dau tien cua ma tran: " << NguyenToDau(b, k, l);
+	cout << "\nCac gia tri chan:\n";
+	LietKe(b, k, l);
 	cout << "\n\n\nKet thuc!!!!!";
 	return 0;
 }
@@ -46,27 +45,13 @@ void Xuat(int a[][100], int m, int n)
 		cout << setw(10) << a[m - 1][j];
 }
 
-bool ktNguyenTo(int x)
-{
-	int dem = 0;
-	for (int i = 1; i <= x; i++)
-		if (x % i == 0)
-			dem++;
-	if (dem == 2)
-		return true;
-	return false;
-
-}
-
-int NguyenToDau(int a[][100], int m, int n)
+void LietKe(int a[][100], int m, int n)
 {
 	if (m == 0)
-		return -1;
-	int lc = NguyenToDau(a, m - 1, n);
-	if (lc != -1)
-		return lc;
+		return;
+	LietKe(a, m - 1, n);
 	for (int j = 0; j < n; j++)
-		if (ktNguyenTo(a[m - 1][j]))
-			return a[m - 1][j];
-	return -1;
+		if (a[m - 1][j] % 2 == 0)
+			cout << setw(10) << a[m - 1][j];
+
 }
